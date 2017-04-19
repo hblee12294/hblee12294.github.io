@@ -1,2 +1,68 @@
 /* A concise blog with flat-design */
 
+html, body, header {
+	margin: 0;
+	padding:0;
+}
+
+button {
+	border: none;
+	background: #333;
+	color: #eee;
+}
+
+nav {
+	background: #ccc;
+	height: 50px;
+}
+
+nav ul {
+	list-style: none;
+}
+
+nav ul li {
+	display: inline-block;
+	line-height: 50px;
+	float: right;
+	margin-right: 20px;
+}
+
+nav ul li a {
+	text-decoration: none;
+	display: inline-block;
+	height: 50px;
+}
+
+nav ul li.logo {
+	float: left;
+}
+
+#banner {
+	background: #777;
+	height: 600px;
+}
+
+#banner .inner {
+	max-width: 300px;
+	text-align: center;
+	margin: 0 auto;
+	position: relative;
+	top: 170px;
+}
+
+#banner .inner h1 {
+	margin: 0;
+}
+
+#banner .inner p.sub-heading {
+	line-height: 30px;
+	margin: 30px;
+}
+
+#banner button {
+	padding: 10px 15px;
+}
+
+#banner .more {
+	margin-top: 80%;
+}
