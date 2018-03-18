@@ -202,7 +202,7 @@ header {
 /* Project 2 */
 #pj2 .des {
 	position: absolute;
-	left: 65vw;
+	left: 70vw;
 	top: 50vh;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
@@ -245,7 +245,7 @@ header {
 /* Project 4 */
 #pj4 .des {
 	position: absolute;
-	left: 65vw;
+	left: 70vw;
 	top: 50vh;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
