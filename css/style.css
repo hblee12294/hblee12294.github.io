@@ -23,6 +23,7 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
+	/*transform-style: preserve-3d;*/
 }
 
 .parallax_layer_base {
@@ -69,16 +70,27 @@ header {
 	right: 5vw;
 	bottom: 92vh;
 	left: 5vw;
-	background-color: rgba(255,255,255,0.8);
+	background-color: rgba(255,255,255,.8);
 	z-index: 10;
 }
 
 .contact a {
+	vertical-align: middle;
 	transition: 0.3s;
 }
 
-.contact a:hover {
-	margin-left: 1vw;
+.contact a.icon {
+	display: inline-block;
+	height: 20px;
+	width: 0px;
+	background-size: 20px;
+	background-image: url(/icon/email.svg);
+	font-size: 0;
+}
+
+.contact:hover a.icon {
+	width: 20px;
+	background-size: 20px;
 }
 
 .media a {
@@ -109,6 +121,14 @@ header {
 
 /* Top and bottom frame
 ----------------------- */
+/*.frame-mask {
+	position: fixed;
+	top: 8vh;
+	right: 5vw;
+	bottom: 8vh;
+	left: 5vw;
+	background: rgba(255,255,255,.8);
+}*/
 
 .frame-top, .frame-bottom {
 	position: fixed;
@@ -128,6 +148,7 @@ header {
 	top: 50vh;
 	bottom: 8vh;
 	border-top: none;
+	z-index: -1;
 }
 
 /* Commons in skill, project, and expectation
@@ -162,38 +183,40 @@ header {
 	box-shadow: 1px 1px 8px #888;
 }
 
-/*#pj1 .des, #pj2 .pic, #pj3 .des, #pj4 .pic {
-	position: absolute;
-	left: 30vw;
-	top: 50vh;
+.des {
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 }
 
- #pj1 .pic, #pj2 .des, #pj3 .pic, #pj4 .des {
- 	position: absolute;
-	left: 70%;
-	top: 50%;
+.pic {
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
- }*/
+	transition: .3s;
+}
+
+.pic_base {
+	transform: translate(-49%,-51%);
+	cursor: pointer;
+	z-index: -1;
+}
+
+.pic_base:hover {
+	transform: translate(-46%,-54%);
+}
 
  /* Project 1 */
 #pj1 .des {
 	position: absolute;
 	left: 20vw;
 	top: 50vh;
-	-webkit-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
 }
 
 #pj1 .pic {
 	position: absolute;
 	left: 60vw;
 	top: 50vh;
-	-webkit-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
 }
+
 
 #pj1 img {
 	width: 40vw;
@@ -204,16 +227,12 @@ header {
 	position: absolute;
 	left: 70vw;
 	top: 50vh;
-	-webkit-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
 }
 
 #pj2 .pic {
 	position: absolute;
 	left: 30vw;
 	top: 50vh;
-	-webkit-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
 }
 
 #pj2 img {
@@ -226,16 +245,12 @@ header {
 	position: absolute;
 	left: 20vw;
 	top: 50vh;
-	-webkit-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
 }
 
 #pj3 .pic {
 	position: absolute;
 	left: 60vw;
 	top: 50vh;
-	-webkit-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
 }
 
 #pj3 img {
@@ -247,16 +262,12 @@ header {
 	position: absolute;
 	left: 70vw;
 	top: 50vh;
-	-webkit-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
 }
 
 #pj4 .pic {
 	position: absolute;
 	left: 30vw;
 	top: 50vh;
-	-webkit-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
 }
 
 #pj4 img {
@@ -269,4 +280,21 @@ header {
 .expectation {
 	height: 84vh;
 	padding: 8vh 5vw;
+}
+
+/* Customer Scroll Bar
+----------------------------  */
+
+::-webkit-scrollbar {
+	width: 7px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: white;
+}
+
+::-webkit-scrollbar-thumb {
+	/*border-radius: 3px;*/
+	border-right: 2px solid white;
+	background-color: #202020;
 }
