@@ -14,7 +14,6 @@
 	position: relative;
 	height: 110vh;
 	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
 }
 
 .parallax_layer {
@@ -23,7 +22,6 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	/*transform-style: preserve-3d;*/
 }
 
 .parallax_layer_base {
@@ -121,14 +119,6 @@ header {
 
 /* Top and bottom frame
 ----------------------- */
-/*.frame-mask {
-	position: fixed;
-	top: 8vh;
-	right: 5vw;
-	bottom: 8vh;
-	left: 5vw;
-	background: rgba(255,255,255,.8);
-}*/
 
 .frame-top, .frame-bottom {
 	position: fixed;
@@ -195,13 +185,13 @@ header {
 }
 
 .pic_base {
-	transform: translate(-49%,-51%);
+	transform: translate(-48.5%,-51.5%);
 	cursor: pointer;
 	z-index: -1;
 }
 
 .pic_base:hover {
-	transform: translate(-46%,-54%);
+	transform: translate(-45%,-55%);
 }
 
  /* Project 1 */
@@ -297,4 +287,11 @@ header {
 	/*border-radius: 3px;*/
 	border-right: 2px solid white;
 	background-color: #202020;
+}
+
+/* Self-adaption
+------------------ */
+
+@media screen and (max-width: ) {
+
 }
