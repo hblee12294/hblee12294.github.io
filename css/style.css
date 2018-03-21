@@ -8,6 +8,7 @@
 	overflow-y: auto;
 	-webkit-perspective: 1px;
 	perspective: 1px;
+	-webkit-overflow-scrolling: touch;
 }
 
 .parallax_group {
