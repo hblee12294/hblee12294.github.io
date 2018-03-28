@@ -81,15 +81,10 @@ header {
 .contact a.icon {
 	display: inline-block;
 	height: 20px;
-	width: 0px;
+	width: 20px;
 	background-size: 20px;
 	background-image: url(/icon/email.svg);
 	font-size: 0;
-}
-
-.contact:hover a.icon {
-	width: 20px;
-	background-size: 20px;
 }
 
 .media a {
@@ -151,16 +146,26 @@ header {
 	font-weight: bold;
 }
 
+.field {
+	padding: 0 10vw 2vh;
+	font-size: 1.5rem;
+	transform: translate(2rem);
+}
+
+
 /* Skill 
 ------------ */
+
 .skill {
 	height: 84vh;
 	padding: 8vh 5vw;
+	color: #202020;
 }
 
-.field {
+.skill .subtitle {
 	padding: 0 10vw;
-	font-size: 1.5rem;
+	font-size: 2rem;
+	transform: translate(2rem);
 }
 
 /* Project
@@ -168,10 +173,18 @@ header {
 
 .project {
 	padding: 0 5vw;
+	color: #202020;
 }
 
-.project img {
+.project .preview {
 	box-shadow: 1px 1px 8px #888;
+}
+
+.project .subtitle {
+	display: block;
+	font-size: 2rem;
+	font-weight: bold;
+	/*text-align: justify;*/
 }
 
 .des {
@@ -186,13 +199,22 @@ header {
 }
 
 .pic_base {
-	transform: translate(-48.5%,-51.5%);
+	transform: translate(-47.5%,-52.5%);
 	cursor: pointer;
 	z-index: -1;
 }
 
 .pic_base:hover {
-	transform: translate(-45%,-55%);
+	transform: translate(-44%,-56%);
+}
+
+.logo-bar {
+	display: inline-block;
+	margin-left: 1rem;
+}
+
+.logo {
+	width: 1.2rem;
 }
 
  /* Project 1 */
@@ -209,15 +231,16 @@ header {
 }
 
 
-#pj1 img {
+#pj1 .preview {
 	width: 40vw;
 }
 
 /* Project 2 */
 #pj2 .des {
 	position: absolute;
-	left: 70vw;
+	left: 75vw;
 	top: 50vh;
+	width: 25vw;
 }
 
 #pj2 .pic {
@@ -226,7 +249,7 @@ header {
 	top: 50vh;
 }
 
-#pj2 img {
+#pj2 .preview {
 	width: 50vw;
 	border-radius: 3.8%;
 }
@@ -244,7 +267,7 @@ header {
 	top: 50vh;
 }
 
-#pj3 img {
+#pj3 .preview {
 	width: 35vw;
 }
 
@@ -253,6 +276,7 @@ header {
 	position: absolute;
 	left: 70vw;
 	top: 50vh;
+	width: 25vw;
 }
 
 #pj4 .pic {
@@ -261,7 +285,7 @@ header {
 	top: 50vh;
 }
 
-#pj4 img {
+#pj4 .preview {
 	width: 40vw;
 }
 
@@ -269,6 +293,7 @@ header {
 ------------------ */
 
 .expectation {
+	color: #202020;
 	height: 84vh;
 	padding: 8vh 5vw;
 }
