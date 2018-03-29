@@ -75,7 +75,7 @@ header {
 
 .contact a {
 	vertical-align: middle;
-	transition: 0.3s;
+	transition: 0.2s;
 }
 
 .contact a.icon {
@@ -85,6 +85,11 @@ header {
 	background-size: 20px;
 	background-image: url(/icon/email.svg);
 	font-size: 0;
+}
+
+.contact:hover a.icon {
+	margin-right: 4px;
+	margin-left: 3px;
 }
 
 .media a {
@@ -182,9 +187,9 @@ header {
 
 .project .subtitle {
 	display: block;
+	margin-bottom: 1vh;
 	font-size: 2rem;
 	font-weight: bold;
-	/*text-align: justify;*/
 }
 
 .des {
@@ -210,11 +215,10 @@ header {
 
 .logo-bar {
 	display: inline-block;
-	margin-left: 1rem;
 }
 
 .logo {
-	width: 1.2rem;
+	width: 1rem;
 }
 
  /* Project 1 */
@@ -230,10 +234,10 @@ header {
 	top: 50vh;
 }
 
-
 #pj1 .preview {
 	width: 40vw;
 }
+
 
 /* Project 2 */
 #pj2 .des {
