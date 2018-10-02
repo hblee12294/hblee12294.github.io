@@ -1,0 +1,12 @@
+body {
+  background-color: #000;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  font-size: 24px;
+  color: #f0f0f0;
+}
