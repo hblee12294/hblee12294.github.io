@@ -8,8 +8,7 @@
   <meta name="author" content="hblee" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="css/style.css">
-  <script src="lib/three.js"></script>
-  <script src="lib/OrbitControls.js"></script>
+  <script src="lib/three.min.js"></script>
 </head>
 <body>
   <header>Refurbishing, coming soon ...</header>
@@ -73,7 +72,7 @@
       container.appendChild(renderer.domElement)
 
       // template vertices
-      let vertices = new THREE.BoxGeometry(200, 200, 200, 16, 16, 16).vertices
+      let vertices = new THREE.BoxGeometry(150, 150, 150, 10, 10, 10).vertices
       let positions = new Float32Array(vertices.length * 3)
       let colors = new Float32Array(vertices.length * 3)
       let sizes = new Float32Array(vertices.length)
@@ -84,7 +83,7 @@
         vertex = vertices[i]
         vertex.toArray(positions, i * 3)
 
-        color.setHSL(0.01 + 0.1 * (i / l), 1.0, 0.5)
+        color.setHSL(0.6, 1.0, 0.9)
         color.toArray(colors, i * 3)
 
         sizes[i] = PARTICLE_SIZE * 0.5
@@ -115,7 +114,7 @@
       mouse = new THREE.Vector2()
 
       window.addEventListener('resize', onWindowResize, false)
-      document.addEventListener('mouseover', onDocumentMouseMove, false)
+      document.addEventListener('mousemove', onDocumentMouseMove, false)
     }
 
     function onWindowResize() {
@@ -137,11 +136,12 @@
     }
 
     function render() {
-      particles.rotation.x += 0.0005
-      particles.rotation.y += 0.001
+      particles.rotation.x += 0.0004
+      particles.rotation.y += 0.0002
 
       let geometry = particles.geometry
       let attributes = geometry.attributes
+      let color = new THREE.Color().setHSL(Math.random(), 1.0, 0.7)
 
       raycaster.setFromCamera(mouse, camera)
 
@@ -153,7 +153,11 @@
           INTERSECTED = intersects[0].index
 
           attributes.size.array[INTERSECTED] = PARTICLE_SIZE * 1.25
+          attributes.customColor.array[INTERSECTED * 3 + 0] = color.r
+          attributes.customColor.array[INTERSECTED * 3 + 1] = color.g
+          attributes.customColor.array[INTERSECTED * 3 + 2] = color.b
           attributes.size.needsUpdate = true
+          attributes.customColor.needsUpdate = true
         }
       } else if (INTERSECTED !== null) {
         attributes.size.array[INTERSECTED] = PARTICLE_SIZE
