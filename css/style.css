@@ -23,6 +23,7 @@ header {
   color: #fff;
   font-size: 3rem;
   font-weight: bold;
+  white-space: nowrap;
   cursor: pointer;
   transition: all .6s;
 }
@@ -139,9 +140,9 @@ header {
   max-height: 70vh;
   max-width: 80vw;
   border: 2px solid #f5f5f5;
-  transition: transform .5s ease-out .4s, opacity .9s;
-  transform: translateY(30%);
-  opacity: .5;
+  transition: transform .3s ease-out .3s, opacity .3s ease .2s, max-height .3s, max-width .3s;
+  transform: translate(5%, 5%);
+  opacity: .3;
 }
 
 .project-pic[src] {
@@ -151,8 +152,48 @@ header {
 
 /* --- Final --- */
 .final-content {
-  padding-bottom: 30px;
+  padding-bottom: 40px;
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   text-align: center;
+}
+
+.slogan {
+  display: inline-block;
+  padding: 0 40px;
+}
+
+#scramble-word {
+  position: relative;
+  display: inline-block;
+  min-width: 10rem;
+}
+
+#scramble-word:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -8%;
+  left: 0;
+  border-bottom: 2px solid;
+}
+
+.dud0 {
+  color: deepskyblue;
+}
+
+.dud1 {
+  color: orange;
+}
+
+.dud2 {
+  color: olivedrab;
+}
+
+.dud3 {
+  color: crimson;
+}
+
+.dud4 {
+  color: yellow;
 }

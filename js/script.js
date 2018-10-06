@@ -8,6 +8,7 @@ new fullpage('#fullpage', {
   licenseKey: 'OPEN-SOURCE-GPLV3-LICENSE',
   autoScrolling: true,
   scrollingSpeed: 600,
+  touchSensitivity: 7,
 
   onLeave: function(origin, destination, direction) {
     // header
@@ -29,15 +30,15 @@ new fullpage('#fullpage', {
 })
 
 function backToTop() {
-  els.header.classList.remove('reverse')
   fullpage_api.moveTo(1)
+  els.header.classList.remove('reverse')
 }
 
 // Scatter effect
 class ScrambleText {
   constructor(el) {
     this.el = el
-    this.chars = 'abcdefghijklmnopqrstuvwxyz'
+    this.chars = 'abcdefghijklmnopqrstuvwxyz?!~$+@'
     this.update = this.update.bind(this)
   }
 
@@ -79,7 +80,7 @@ class ScrambleText {
           this.queue[i].char = char
         }
 
-        output += `<span class="dud">${ char }</span>`
+        output += `<span class="dud${ Math.trunc(Math.random() * 5) }">${ char }</span>`
       } else {
         output += from
       }
@@ -106,7 +107,7 @@ function InfiniteScrambler(words, el) {
 
   const next = () => {
     scrambler.setText(words[counter]).then(() => {
-      if (!lock) { setTimeout(next, 800) }
+      if (!lock) { setTimeout(next, 1000) }
     })
     counter = (counter + 1) % words.length
   }
@@ -121,8 +122,10 @@ function InfiniteScrambler(words, el) {
 const words = [
   'better',
   'subtle',
+  'elegant',
   'touchable',
-  'elegant'
+  'visible',
+  'accessible'
 ]
 
 const scm = new InfiniteScrambler(words, els.scmWord)
