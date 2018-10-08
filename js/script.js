@@ -14,7 +14,7 @@ new fullpage('#fullpage', {
   licenseKey: 'OPEN-SOURCE-GPLV3-LICENSE',
   autoScrolling: true,
   scrollingSpeed: 600,
-  touchSensitivity: 7,
+  touchSensitivity: 8,
 
   onLeave: function(origin, destination, direction) {
     // header
