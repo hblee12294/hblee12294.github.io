@@ -1,6 +1,12 @@
 const els = {
   header: document.querySelector('#header'),
-  scmWord: document.querySelector('#scramble-word')
+  scmWord: document.querySelector('#scramble-word'),
+  cntWords: document.querySelectorAll('.content-down span'),
+  cntBlocks: (function () {
+    let blocks = {}
+    document.querySelectorAll('.content-block').forEach(item => blocks[item.id] = item)
+    return blocks
+  })()
 }
 
 // Page Setting
@@ -34,7 +40,18 @@ function backToTop() {
   els.header.classList.remove('reverse')
 }
 
-// Scatter effect
+// Intro content
+els.cntWords.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    els.cntBlocks[el.dataset.content].classList.add('hover')
+  })
+  el.addEventListener('mouseout', () => {
+    els.cntBlocks[el.dataset.content].classList.remove('hover')
+  })
+})
+
+
+// Scrable effect
 class ScrambleText {
   constructor(el) {
     this.el = el

@@ -117,12 +117,115 @@ header {
   }
 }
 
-/* --- Introduction --- */
-.intro-content {
-  padding-bottom: 30px;
+/* --- Intro --- */
+/* content-up */
+.content-up {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 65vh;
+  left: 0;
+  padding-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   color: #fff;
   font-size: 1.2rem;
-  text-align: center;
+}
+
+.content-up-wrapper {
+  position: relative;
+  width: 50vw;
+}
+
+.content-block {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transition: all .3s;
+  transform-origin: left center;
+  transform: translateX(-10%);
+  opacity: 0;
+}
+
+.content-block.hover {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.content-block ul {
+  margin: 0;
+  padding: 0;
+}
+
+.content-block li {
+  list-style: none;
+}
+
+.content-block .sub-ttl {
+  padding: .5rem 0;
+}
+
+.content-block .sub-cnt {
+  color: #aaa;
+  font-size: 1rem;
+  padding-left: 2rem;
+}
+
+.content-block .slash {
+  color: #aaa;
+  padding: 0 .8rem;
+}
+
+#exp .sub-ttl {
+  display: flex;
+  align-items: center;
+}
+
+#exp img {
+  width: 1.5rem;
+  padding-right: 0.5rem;
+}
+
+/* content-down */
+.content-down {
+  position: absolute;
+  top: 35vh;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding-top: 1rem;
+  background-color: #fff;
+  color: #555;
+  font-size: 1.2rem;
+}
+
+.content-down p {
+  width: 50vw;
+  margin: 0 auto 2rem;
+  line-height: 2rem;
+}
+
+.content-down span {
+  position: relative;
+  color: #000;
+  font-weight: bold;
+  cursor: default;
+}
+
+.content-down span:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 2px;
+  transition: all .2s ease-out;
+}
+
+.content-down span:hover:after {
+  width: 100%;
+  border-bottom: 3px dotted #000;
 }
 
 /* --- Projects --- */
@@ -166,7 +269,8 @@ header {
 #scramble-word {
   position: relative;
   display: inline-block;
-  min-width: 10rem;
+  min-width: 14rem;
+  font-size: 2.5rem;
 }
 
 #scramble-word:after {
@@ -196,4 +300,32 @@ header {
 
 .dud4 {
   color: yellow;
+}
+
+
+/* Responsive */
+@media screen and (max-width: 750px) {
+  body, html {
+    font-size: 14px;
+  }
+
+  header {
+    padding: 20px 20px;
+  }
+
+  .content-up {
+    bottom: 60vh;
+  }
+
+  .content-down {
+    top: 40vh;
+  }
+
+  .content-up-wrapper {
+    width: 80vw;
+  }
+
+  .content-down p {
+    width: 80vw;
+  }
 }
