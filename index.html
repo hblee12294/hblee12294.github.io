@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/fullpage.min.css">
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-  
   <script src="lib/three.min.js"></script>
   <script src="lib/OrbitControls.js"></script>
   <script src="lib/fullpage.min.js"></script>
@@ -28,7 +27,10 @@
 
 <body>
   <main id="fullpage">
+    <!-- Homepage -->
     <div class="section" id="container"></div>
+
+    <!-- Introduction -->
     <div class="section">
       <div class="intro-up">
         <div class="block-wrap">
@@ -67,93 +69,61 @@
       <div class="intro-down">
         <p class="intro-cnt"><span data-content="edu">Education background</span>, <span data-content="skill">skills</span>, <span data-content="exp">work experience</span>, and <span data-content="int">interests</span> are far from defining a person. They are just winding paths and board streets to the destiantion.</p>
       </div>
-      <!-- <div class="content-up">
-        <div class="content-up-wrapper">
-          <div class="content-block" id="edu">
-              <ul>
-                <li>
-                  <div class="sub-ttl">Tianjin University</div>
-                  <div class="sub-cnt"">B.Ed in Pedagogy</div>
-                </li>
-                <li>
-                  <div class="sub-ttl">Northeastern University </div>
-                  <div class="sub-cnt">M.S in Information Systems</div></li>
-              </ul>
-            </div>
-            <div class="content-block" id="ski">
-              <ul>
-                <li>
-                  <div class="sub-ttl">Frontend</div>
-                  <div class="sub-cnt">JavaScript, HTML5 & CSS3, React, Vue</div>
-                </li>
-                <li>
-                  <div class="sub-ttl">Backend & Design</div>
-                  <div class="sub-cnt">Node.js, Java, Python, MongoDB, Photoshop, Axure, Adobe XD</div>
-                </li>
-              </ul>
-            </div>
-            <div class="content-block" id="exp">
-              <div class="sub-ttl"><img src="/icon/xiachufang.png" alt="www.xiachufang.com">Xiachufang Ltd.</div>
-              <div class="sub-cnt">Frontend Engineer Intern</div>
-            </div>
-            <div class="content-block" id="int">
-              <div class="sub-cnt">
-                Web & Mobile Develpment<i class="slash">/</i>UI & UX Design<i class="slash">/</i>3D Model<i class="slash">/</i>Product<i class="slash">/</i>Retail<i class="slash">/</i>Fashion<i class="slash">/</i>
-                Commercial<i class="slash">/</i>Decoration<i class="slash">/</i>Reading<i class="slash">/</i>Cooking
-              </div>
-            </div>
-        </div>
-      </div>
-      <div class="content-down">
-        <p><span data-content="edu">Education background</span>, <span data-content="ski">skills</span>, <span data-content="exp">work experience</span>, and <span data-content="int">interests</span> are far from defining a person. They are just winding paths and board streets to the destiantion.</p>
-        <p>It's faith makes who I am.</p>
-      </div> -->
     </div>
-    <div class="section project">
-        <div class="pj-wrapper" id="msic-rcmd">
-          <h4 class="pj-ttl"><a href="https://msic-rcmd.herokuapp.com/" target="_blank">Music Recommandation</a></h4>
-          <div class="pj-content">
-            <div class="pj-content-left">
-              <img class="project-pic" data-src="image/msic_rcmd.png">
-              <!-- <img class="project-pic" data-src="image/msic_rcmd_base.png"> -->
-            </div>
-            <div class="pj-content-right">
-              <p class="pj-des">A music recommandation SAP with CRUD (Create music, Read descriptions, Update 'like' status, Delete music) functionality.</p>
-              <p class="pj-des">Rich interactions, fluent transition animations and self-adptive feature make it intuitive and easy to use.</p>
-            </div>
-          </div>
-        </div>
-    </div>
-    <div class="section project">
-      <div class="pj-wrapper" id="coop-cald">
-        <h4 class="pj-ttl"><a href="https://coop-calendar.herokuapp.com" target="_blank">Coop-calendar</a></h4>
-        <div class="pj-content">
-          <p class="pj-des">An agenda-management web calendar based on React, Express.js and MongoDb. It's integrated with user friendly features such as Google OAuth, presistent login(cookie & session), and keyboard short cuts.</p>
-          <img class="project-pic" data-src="image/coop_calendar.png">
-          <!-- <img class="project-pic" data-src="image/coop_calendar_pop.png"> -->
-        </div>
-      </div>
-    </div>
-    <div class="section project">
-      <div class="pj-wrapper" id="isso-seva">
-        <h4 class="pj-ttl">ISSO SEVA</h4>
-        <div class="pj-content">
-          <div class="pj-content-left">
-            <p class="pj-des">A re-design project for a charity ISSO SEVA. In the design process, our team adopted various user expreience research methods: personas, customer journey map, storyboard, interviews.</p>
-          </div>
 
-          <div class="pj-content-right">
-            <img class="project-pic" data-src="image/isso_seva.png">
+    <!-- Project / msic-rcmd -->
+    <div class="section">
+      <div class="project-wrap" id="msic-rcmd">
+        <h4 class="project-ttl"><a href="https://msic-rcmd.herokuapp.com/" target="_blank">Music Recommandation</a></h4>
+        <div class="project-cnt left-right">
+          <div class="project-img">
+            <img data-src="image/msic_rcmd.png">
+          </div>
+          <div class="project-text">
+            <p>A music recommandation SAP with CRUD (create music, read descriptions, update 'like' status, delete music) functionality.</p>
+            <p>Rich interactions, fluent transition animations and self-adptation make it intuitive and easy to use.</p>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Project / coop-calendar -->
+    <div class="section">
+      <div class="project-wrap" id="coop-cald">
+        <h4 class="project-ttl"><a href="https://coop-calendar.herokuapp.com" target="_blank">Coop-calendar</a></h4>
+        <div class="project-cnt top-bottom">
+          <div class="project-text">
+            <p>An agenda-management web calendar based on React, Express.js and MongoDb. It's integrated with user friendly features such as Google OAuth, presistent login(cookie & session), and keyboard short cuts.</p>
+          </div>
+          <div class="project-img">
+            <img data-src="image/coop_calendar.png">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project / isso-seva -->
+    <div class="section">
+      <div class="project-wrap" id="isso-seva">
+        <h4 class="project-ttl">ISSO SEVA</h4>
+        <div class="project-cnt left-right">
+          <div class="project-text">
+              <p>A re-design project for a charity ISSO SEVA. In the design process, our team adopted various user expreience research methods: personas, customer journey map, storyboard, interviews.</p>
+            </div>
+          <div class="project-img">
+            <img data-src="image/isso_seva.png">
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- <div class="section project">
         <div class="pj-wrapper">
           <h4 class="pj-ttl">Vegan Fans</h4>
           <img class="project-pic" data-src="image/isso_seva.png">
         </div>
     </div> -->
+
     <div class="section final">
       <div class="final-content">
         <div class="slogan"">Make the good <div id="scramble-word"></div></div>
