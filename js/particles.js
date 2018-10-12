@@ -29,6 +29,7 @@
     renderer = new THREE.WebGLRenderer()
     renderer.setPixelRatio(window.devicePixelRatio)
     renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.setClearColor(0x1b1b1b)
     container.appendChild(renderer.domElement)
 
     // template vertices

@@ -1,10 +1,10 @@
 const els = {
   header: document.querySelector('#header'),
   scmWord: document.querySelector('#scramble-word'),
-  cntWords: document.querySelectorAll('.content-down span'),
+  cntWords: document.querySelectorAll('.intro-cnt span'),
   cntBlocks: (function () {
     let blocks = {}
-    document.querySelectorAll('.content-block').forEach(item => blocks[item.id] = item)
+    document.querySelectorAll('.intro-block').forEach(item => blocks[item.id] = item)
     return blocks
   })()
 }
@@ -51,7 +51,7 @@ els.cntWords.forEach(el => {
 })
 
 
-// Scrable effect
+// Scramble text effect
 class ScrambleText {
   constructor(el) {
     this.el = el
