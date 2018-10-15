@@ -25,6 +25,11 @@ new fullpage('#fullpage', {
 
     if ((origin.index === 2 && destination.index === 1) || destination.isLast) {
       els.header.classList.remove('reverse')
+    } 
+
+    // first page
+    if (origin.isFirst || destination.isFirst) {
+      els.cubeCtl.classList.toggle('cube-hidden')
     }
 
     // scrambler

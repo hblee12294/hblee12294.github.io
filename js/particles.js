@@ -88,7 +88,6 @@ function onWindowResizeOrLoad() {
   camera.aspect = window.innerWidth / window.innerHeight
   camera.updateProjectionMatrix()
 
-  console.log('resize / onload')
   if (document.documentElement.clientWidth < 750 || document.body.clientWidth < 750) {
     control.enabled = false
     camera.position.z = 300

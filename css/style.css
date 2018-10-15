@@ -139,6 +139,7 @@ header {
   height: 2rem;
   perspective: 4rem;
   cursor: pointer;
+  transition: transform .6s cubic-bezier(.49,-1.32,.43,1.98), opacity .6s;
 }
 
 .cube {
@@ -185,6 +186,11 @@ header {
 .face-bottom {
   background: hsla(60, 100%, 70%, 1);
   transform: rotateX(-90deg) translateZ(1rem);
+}
+
+.cube-hidden {
+  transform: translateY(200%);
+  opacity: 0;
 }
 
 /* Introduction
