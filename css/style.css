@@ -130,6 +130,63 @@ header {
   }
 }
 
+/* cube-control */
+#cube-control {
+  position: absolute;
+  right: 3rem;
+  bottom: 3rem;
+  width: 2rem;
+  height: 2rem;
+  perspective: 4rem;
+  cursor: pointer;
+}
+
+.cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: translateZ(-1rem) rotate3d(.5,1,.5,45deg);
+  transition: transform .6s ease-in-out;
+}
+
+#cube-control:hover .cube {
+  transform: translateZ(-1rem) rotate3d(.5,1,.5, 215deg);
+}
+
+.cube-face {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.face-front {
+  background: hsla(0, 100%, 70%, 1);
+  transform: rotateY(0deg) translateZ(1rem);
+}
+.face-right {
+  background: hsla(120, 100%, 70%, 1);
+  transform: rotateY(90deg) translateZ(1rem);
+}
+.face-back {
+  background: hsla(300, 100%, 70%, 1);
+  transform: rotateY(180deg) translateZ(1rem);
+}
+.face-left {
+  background: hsla(180, 100%, 70%, 1);
+  transform: rotateY(-90deg) translateZ(1rem);
+}
+.face-top {
+  background: hsla(240, 100%, 70%, 1);
+  transform: rotateX(90deg) translateZ(1rem);
+}
+.face-bottom {
+  background: hsla(60, 100%, 70%, 1);
+  transform: rotateX(-90deg) translateZ(1rem);
+}
+
 /* Introduction
  ---------------- */
 /* intro-up */
@@ -408,6 +465,11 @@ header {
 
   .reverse #email svg {
     width: 18px;
+  }
+
+  #cube-control {
+    right: 1rem;
+    bottom: 1rem;
   }
 
   /* --- Intro --- */

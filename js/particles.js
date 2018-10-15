@@ -1,131 +1,182 @@
-(function () {
-  let renderer, scene, camera, control
-  let particles, uniforms
-  const PARTICLE_SIZE = 30
 
-  let raycaster, intersects
-  let mouse, INTERSECTED
+let renderer, scene, camera, control
+let particles, uniforms
+const PARTICLE_SIZE = 30
 
-  init()
-  animate()
+let raycaster, intersects
+let mouse, INTERSECTED
 
-  function init() {
-    let container = document.getElementById('container')
+let xacc = XACC = 0.0004, yacc = YACC = 0.0002
+let accRate, speedPeak
+let enableAcc, isAcc
 
-    // scene
-    scene = new THREE.Scene()
+let particleIndex = 0
 
-    // camera
-    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000)
-    camera.position.z = 250
+init()
+animate()
 
-    // control
-    control = new THREE.OrbitControls(camera)
-    control.enablePan = false
-    control.enableZoom = false
-    control.update()
+function init() {
+  let container = document.getElementById('container')
 
-    // renderer
-    renderer = new THREE.WebGLRenderer()
-    renderer.setPixelRatio(window.devicePixelRatio)
-    renderer.setSize(window.innerWidth, window.innerHeight)
-    renderer.setClearColor(0x1b1b1b)
-    container.appendChild(renderer.domElement)
+  // scene
+  scene = new THREE.Scene()
 
-    // template vertices
-    let vertices = new THREE.BoxGeometry(105, 105, 110, 6, 6, 6).vertices
-    let positions = new Float32Array(vertices.length * 3)
-    let colors = new Float32Array(vertices.length * 3)
-    let sizes = new Float32Array(vertices.length)
+  // camera
+  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000)
+  camera.position.z = 250
 
-    let vertex
-    let color = new THREE.Color()
-    for (let i = 0, l = vertices.length; i < l; ++i) {
-      vertex = vertices[i]
-      vertex.toArray(positions, i * 3)
+  // control
+  control = new THREE.OrbitControls(camera, container)
+  control.enablePan = false
+  control.enableZoom = false
+  control.update()
 
-      color.setHSL(0.6, 1.0, 0.9)
-      color.toArray(colors, i * 3)
+  // renderer
+  renderer = new THREE.WebGLRenderer()
+  renderer.setPixelRatio(window.devicePixelRatio)
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  renderer.setClearColor(0x1b1b1b)
+  container.appendChild(renderer.domElement)
 
-      sizes[i] = PARTICLE_SIZE * 0.5
+  // template vertices
+  let vertices = new THREE.BoxGeometry(105, 105, 105, 6, 6, 6).vertices
+  let positions = new Float32Array(vertices.length * 3)
+  let colors = new Float32Array(vertices.length * 3)
+  let sizes = new Float32Array(vertices.length)
+
+  let vertex
+  let color = new THREE.Color()
+  for (let i = 0, l = vertices.length; i < l; ++i) {
+    vertex = vertices[i]
+    vertex.toArray(positions, i * 3)
+
+    color.setHSL(0.6, 1.0, 0.9)
+    color.toArray(colors, i * 3)
+
+    sizes[i] = PARTICLE_SIZE * 0.5
+  }
+
+  // build geometry from template vertices
+  const geometry = new THREE.BufferGeometry()
+  geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3))
+  geometry.addAttribute('customColor', new THREE.BufferAttribute(colors, 3))
+  geometry.addAttribute('size', new THREE.BufferAttribute(sizes, 1))
+
+  // material
+  const material = new THREE.ShaderMaterial({
+    uniforms: {
+      color: { value: new THREE.Color(0xffffff) },
+      texture: { value: new THREE.TextureLoader().load('texture/disc.png') }
+    },
+    vertexShader: document.getElementById('vertexshader').textContent,
+    fragmentShader: document.getElementById('fragmentshader').textContent,
+    alphaTest: 0.9
+  })
+
+  // add particles to the scene
+  particles = new THREE.Points(geometry, material)
+  scene.add(particles)
+
+  raycaster = new THREE.Raycaster()
+  mouse = new THREE.Vector2()
+
+  window.addEventListener('resize', onWindowResize, false)
+  document.addEventListener('mousemove', onDocumentMouseMove, false)
+}
+
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
+
+  renderer.setSize(window.innerWidth, window.innerHeight)
+}
+
+function onDocumentMouseMove(event) {
+  event.preventDefault()
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+}
+
+function animate() {
+  requestAnimationFrame(animate)
+  render()
+}
+
+function render() {
+  particles.rotation.x += xacc
+  particles.rotation.y += yacc
+
+  // acceleration
+  if (enableAcc) {
+    if (yacc > speedPeak) isAcc = false
+
+    isAcc ? yacc *= accRate : yacc /= accRate
+
+    // put color on acceleration
+    putColorOnAcc()
+
+    if (yacc < YACC) {
+      enableAcc = false
+      yacc = YACC
+      particleIndex = 0
     }
-
-    // build geometry from template vertices
-    const geometry = new THREE.BufferGeometry()
-    geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3))
-    geometry.addAttribute('customColor', new THREE.BufferAttribute(colors, 3))
-    geometry.addAttribute('size', new THREE.BufferAttribute(sizes, 1))
-
-    // material
-    const material = new THREE.ShaderMaterial({
-      uniforms: {
-        color: { value: new THREE.Color(0xffffff) },
-        texture: { value: new THREE.TextureLoader().load('texture/disc.png') }
-      },
-      vertexShader: document.getElementById('vertexshader').textContent,
-      fragmentShader: document.getElementById('fragmentshader').textContent,
-      alphaTest: 0.9
-    })
-
-    // add particles to the scene
-    particles = new THREE.Points(geometry, material)
-    scene.add(particles)
-
-    raycaster = new THREE.Raycaster()
-    mouse = new THREE.Vector2()
-
-    window.addEventListener('resize', onWindowResize, false)
-    document.addEventListener('mousemove', onDocumentMouseMove, false)
   }
 
-  function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight
-    camera.updateProjectionMatrix()
+  // put color on particles on clicking
+  putColorOnClick()
 
-    renderer.setSize(window.innerWidth, window.innerHeight)
-  }
+  renderer.render(scene, camera)
+}
 
-  function onDocumentMouseMove(event) {
-    event.preventDefault()
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
-  }
+function putColorOnClick() {
+  let geometry = particles.geometry
+  let attributes = geometry.attributes
+  let color = new THREE.Color().setHSL(Math.random(), 1.0, 0.7)
 
-  function animate() {
-    requestAnimationFrame(animate)
-    render()
-  }
+  raycaster.setFromCamera(mouse, camera)
 
-  function render() {
-    particles.rotation.x += 0.0004
-    particles.rotation.y += 0.0002
-
-    let geometry = particles.geometry
-    let attributes = geometry.attributes
-    let color = new THREE.Color().setHSL(Math.random(), 1.0, 0.7)
-
-    raycaster.setFromCamera(mouse, camera)
-
-    intersects = raycaster.intersectObject(particles)
-    if (intersects.length > 0) {
-      if (INTERSECTED != intersects[0].index) {
-        attributes.size.array[INTERSECTED] = PARTICLE_SIZE
-
-        INTERSECTED = intersects[0].index
-
-        attributes.size.array[INTERSECTED] = PARTICLE_SIZE * 1.25
-        attributes.customColor.array[INTERSECTED * 3 + 0] = color.r
-        attributes.customColor.array[INTERSECTED * 3 + 1] = color.g
-        attributes.customColor.array[INTERSECTED * 3 + 2] = color.b
-        attributes.size.needsUpdate = true
-        attributes.customColor.needsUpdate = true
-      }
-    } else if (INTERSECTED !== null) {
+  intersects = raycaster.intersectObject(particles)
+  if (intersects.length > 0) {
+    if (INTERSECTED != intersects[0].index) {
       attributes.size.array[INTERSECTED] = PARTICLE_SIZE
-      attributes.size.needsUpdate = true
-      INTERSECTED = null
-    }
+      INTERSECTED = intersects[0].index
 
-    renderer.render(scene, camera)
+      attributes.size.array[INTERSECTED] = PARTICLE_SIZE * 1.25
+      attributes.customColor.array[INTERSECTED * 3 + 0] = color.r
+      attributes.customColor.array[INTERSECTED * 3 + 1] = color.g
+      attributes.customColor.array[INTERSECTED * 3 + 2] = color.b
+      attributes.size.needsUpdate = true
+      attributes.customColor.needsUpdate = true
+    }
+  } else if (INTERSECTED !== null) {
+    attributes.size.array[INTERSECTED] = PARTICLE_SIZE
+    attributes.size.needsUpdate = true
+    INTERSECTED = null
   }
-})()
+}
+
+function putColorOnAcc() {
+  let geometry = particles.geometry
+  let attributes = geometry.attributes
+  let color = new THREE.Color().setHSL(Math.random(), 1.0, 0.7)
+
+  if (particleIndex < attributes.size.count) {
+    attributes.size.array[particleIndex] = PARTICLE_SIZE
+
+    attributes.customColor.array[particleIndex * 3 + 0] = color.r
+    attributes.customColor.array[particleIndex * 3 + 1] = color.g
+    attributes.customColor.array[particleIndex * 3 + 2] = color.b
+
+    attributes.size.needsUpdate = true
+    attributes.customColor.needsUpdate = true
+
+    particleIndex++
+  }
+}
+
+function startAcc(ar = 1.07, sp = 0.8) {
+  accRate = ar
+  speedPeak = sp
+  enableAcc = true
+  isAcc = true
+}

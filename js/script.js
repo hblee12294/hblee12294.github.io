@@ -1,12 +1,13 @@
 const els = {
-  header: document.querySelector('#header'),
-  scmWord: document.querySelector('#scramble-word'),
+  header: document.getElementById('header'),
+  scbWord: document.getElementById('scramble-word'),
   cntWords: document.querySelectorAll('.intro-cnt span'),
   cntBlocks: (function () {
     let blocks = {}
     document.querySelectorAll('.intro-block').forEach(item => blocks[item.id] = item)
     return blocks
-  })()
+  })(),
+  cubeCtl: document.getElementById('cube-control')
 }
 
 // Page Setting
@@ -28,9 +29,9 @@ new fullpage('#fullpage', {
 
     // scrambler
     if (destination.isLast) {
-      scm.start()
+      scb.start()
     } else {
-      scm.freeze()
+      scb.freeze()
     }
   }
 })
@@ -40,7 +41,7 @@ function backToTop() {
   els.header.classList.remove('reverse')
 }
 
-// Intro content
+// Add listeners
 els.cntWords.forEach(el => {
   el.addEventListener('mouseenter', () => {
     els.cntBlocks[el.dataset.content].classList.add('hover')
@@ -50,6 +51,9 @@ els.cntWords.forEach(el => {
   })
 })
 
+els.cubeCtl.addEventListener('click', () => {
+  startAcc()
+})
 
 // Scramble text effect
 class ScrambleText {
@@ -145,4 +149,4 @@ const words = [
   'accessible'
 ]
 
-const scm = new InfiniteScrambler(words, els.scmWord)
+const scb = new InfiniteScrambler(words, els.scbWord)
