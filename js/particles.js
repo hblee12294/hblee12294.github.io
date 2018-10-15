@@ -80,13 +80,22 @@ function init() {
   raycaster = new THREE.Raycaster()
   mouse = new THREE.Vector2()
 
-  window.addEventListener('resize', onWindowResize, false)
+  window.addEventListener('resize', onWindowResizeOrLoad, false)
   document.addEventListener('mousemove', onDocumentMouseMove, false)
 }
 
-function onWindowResize() {
+function onWindowResizeOrLoad() {
   camera.aspect = window.innerWidth / window.innerHeight
   camera.updateProjectionMatrix()
+
+  console.log('resize / onload')
+  if (document.documentElement.clientWidth < 750 || document.body.clientWidth < 750) {
+    control.enabled = false
+    camera.position.z = 300
+  } else {
+    control.enabled = true
+    camera.position.z = 250
+  }
 
   renderer.setSize(window.innerWidth, window.innerHeight)
 }
