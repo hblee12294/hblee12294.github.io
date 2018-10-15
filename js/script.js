@@ -150,3 +150,9 @@ const words = [
 ]
 
 const scb = new InfiniteScrambler(words, els.scbWord)
+
+// orbitcontrol
+if (document.documentElement.clientWidth < 750 || document.body.clientWidth < 750) {
+  console.log(document.documentElement.clientWidth)
+  control.enabled = false
+}
