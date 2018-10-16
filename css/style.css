@@ -234,6 +234,11 @@ header {
   padding-left: 2rem;
 }
 
+.cnt-wrap {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
 #exp img {
   width: 1.3rem;
   padding-right: 0.5rem;
