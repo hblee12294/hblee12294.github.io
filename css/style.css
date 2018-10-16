@@ -340,7 +340,7 @@ header {
 }
 
 .project-img img {
-  max-width: 100%;
+  max-width: 90%;
   max-height: 100%;
   /* border: 1px solid #f1f1f1; */
   box-shadow: 1px 1px 8px #ddd;
@@ -377,7 +377,7 @@ header {
 }
 
 .top-bottom .project-text p {
-  margin-bottom: 2rem;
+  margin: 2rem 0;
   text-align: left;
 }
 
@@ -537,7 +537,7 @@ header {
   }
   
   .top-bottom .project-text p {
-    margin-bottom: 1rem;
+    margin: .5rem 0;
   }
   
   .top-bottom .project-img {
