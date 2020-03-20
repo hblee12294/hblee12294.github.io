@@ -5,9 +5,10 @@ import { Background } from 'components'
 
 const App: React.FC = () => {
   return (
-    <div>
+    <>
       <Background />
-    </div>
+      <h1>Hongbin Li</h1>
+    </>
   )
 }
 
