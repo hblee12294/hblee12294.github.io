@@ -32,58 +32,59 @@ const roadMarkings_vars = `
         highp float a = 12.9898;
         highp float b = 78.233;
         highp float c = 43758.5453;
-        highp float dt= dot(co.xy ,vec2(a,b));
-        highp float sn= mod(dt,3.14);
+        highp float dt = dot(co.xy ,vec2(a,b));
+        highp float sn = mod(dt,3.14);
         return fract(sin(sn) * c);
     }
 `
 const roadMarkings_fragment = `
-        uv.y = mod(uv.y + uTime * 0.1,1.);
-        float brokenLineWidth = 1. / uLanes * uBrokenLinesWidthPercentage;
-        // How much % of the lane's space is empty
-        float laneEmptySpace = 1. - uBrokenLinesLengthPercentage;
+    uv.y = mod(uv.y + uTime * 0.1,1.);
+    float brokenLineWidth = 1. / uLanes * uBrokenLinesWidthPercentage;
 
-        // Horizontal * vertical offset
-        float brokenLines = step(1.-brokenLineWidth * uLanes,fract(uv.x * uLanes)) * step(laneEmptySpace, fract(uv.y * 100.)) ;
-        // Remove right-hand lines on the right-most lane
-        brokenLines *= step(uv.x * uLanes,uLanes-1.);
-        color = mix(color, uBrokenLinesColor, brokenLines);
+    // How much % of the lane's space is empty
+    float laneEmptySpace = 1. - uBrokenLinesLengthPercentage;
 
-        float shoulderLinesWidth = 1. / uLanes * uShoulderLinesWidthPercentage;
-        float shoulderLines = step(1.-shoulderLinesWidth, uv.x) + step(uv.x, shoulderLinesWidth);
-        color = mix(color, uBrokenLinesColor, shoulderLines);
+    // Horizontal * vertical offset
+    float brokenLines = step(1.-brokenLineWidth * uLanes,fract(uv.x * uLanes)) * step(laneEmptySpace, fract(uv.y * 100.)) ;
 
-        vec2 noiseFreq = vec2(4., 7000.);
-        float roadNoise = random( floor(uv * noiseFreq)/noiseFreq ) * 0.02 - 0.01; 
-        color += roadNoise;
+    // Remove right-hand lines on the right-most lane
+    brokenLines *= step(uv.x * uLanes,uLanes-1.);
+    color = mix(color, uBrokenLinesColor, brokenLines);
+
+    float shoulderLinesWidth = 1. / uLanes * uShoulderLinesWidthPercentage;
+    float shoulderLines = step(1.-shoulderLinesWidth, uv.x) + step(uv.x, shoulderLinesWidth);
+    color = mix(color, uBrokenLinesColor, shoulderLines);
+
+    vec2 noiseFreq = vec2(4., 7000.);
+    float roadNoise = random( floor(uv * noiseFreq)/noiseFreq ) * 0.02 - 0.01; 
+    color += roadNoise;
 `
 const roadFragment = roadBaseFragment
   .replace('#include <roadMarkings_fragment>', roadMarkings_fragment)
   .replace('#include <roadMarkings_vars>', roadMarkings_vars)
 
 const roadVertex = `
-#define USE_FOG;
-uniform float uTime;
-${ShaderChunk['fog_pars_vertex']}
+    #define USE_FOG;
+    uniform float uTime;
+    ${ShaderChunk['fog_pars_vertex']}
 
-uniform float uTravelLength;
+    uniform float uTravelLength;
 
-varying vec2 vUv; 
-  #include <getDistortion_vertex>
-void main() {
-  vec3 transformed = position.xyz;
+    varying vec2 vUv; 
+    #include <getDistortion_vertex>
+    void main() {
+        vec3 transformed = position.xyz;
+        vec3 distortion  = getDistortion((transformed.y + uTravelLength / 2.) / uTravelLength);
+        transformed.x += distortion.x;
+        transformed.z += distortion.y;
+        transformed.y += -1.*distortion.z;
+        vec4 mvPosition = modelViewMatrix * vec4(transformed,1.);
+        gl_Position = projectionMatrix * mvPosition;
+        vUv = uv;
 
-    vec3 distortion  = getDistortion((transformed.y + uTravelLength / 2.) / uTravelLength);
-    transformed.x += distortion.x;
-    transformed.z += distortion.y;
-  transformed.y += -1.*distortion.z;  
-  
-  vec4 mvPosition = modelViewMatrix * vec4(transformed,1.);
-  gl_Position = projectionMatrix * mvPosition;
-  vUv = uv;
-
-  ${ShaderChunk['fog_vertex']}
-}`
+        ${ShaderChunk['fog_vertex']}
+    }
+`
 
 class Road {
   private webgl: any
@@ -100,13 +101,8 @@ class Road {
     this.uTime = new Uniform(0)
   }
 
-  // createIsland() {
-  //   const options = this.options
-  //   let segments = 100
-  // }
-
   // Side  = 0 center, = 1 right = -1 left
-  createPlane(side: any, width: any, isRoad: boolean) {
+  createPlane(side: number, width: number, isRoad: boolean) {
     const options = this.options
     const segments = 100
     const geometry = new PlaneBufferGeometry(

@@ -2,8 +2,8 @@ import { WebGLRenderer, Uniform, Vector2, PerspectiveCamera, Scene, Fog, Clock, 
 import { EffectComposer, BloomEffect, RenderPass, EffectPass, SMAAEffect, SMAAPreset } from 'postprocessing'
 import Road from './Road'
 import CarLights from './CarLights'
-import LightsSticks from './LightsSticks'
-import { lerp, resizeRendererToDisplaySize } from './funcs'
+// import LightsSticks from './LightsSticks'
+import { lerp, resizeRendererToDisplaySize } from './utils'
 
 const distortion_uniforms = {
   uDistortionX: new Uniform(new Vector2(80, 3)),
@@ -11,14 +11,14 @@ const distortion_uniforms = {
 }
 
 const distortion_vertex = `
-#define PI 3.14159265358979
-  uniform vec2 uDistortionX;
-  uniform vec2 uDistortionY;
+    #define PI 3.14159265358979
+    uniform vec2 uDistortionX;
+    uniform vec2 uDistortionY;
 
-    float nsin(float val){
-    return sin(val) * 0.5+0.5;
+    float nsin(float val) {
+        return sin(val) * 0.5+0.5;
     }
-  vec3 getDistortion(float progress){
+    vec3 getDistortion(float progress){
         progress = clamp(progress, 0.,1.);
         float xAmp = uDistortionX.r;
         float xFreq = uDistortionX.g;
@@ -46,7 +46,7 @@ class App {
   road: Road
   leftCarLights: CarLights
   rightCarLights: CarLights
-  leftSticks: LightsSticks
+  // leftSticks: LightsSticks
   fovTarget: any
   speedUpTarget: number
   speedUp: number
@@ -77,7 +77,6 @@ class App {
     this.camera.position.z = -5
     this.camera.position.y = 8
     this.camera.position.x = 0
-    // this.camera.rotateX(-0.4);
     this.scene = new Scene()
 
     const fog = new Fog(options.colors.background, options.length * 0.2, options.length * 500)
@@ -107,7 +106,7 @@ class App {
       options.movingCloserSpeed,
       new Vector2(1, 0 + options.carLightsFade),
     )
-    this.leftSticks = new LightsSticks(this, options)
+    // this.leftSticks = new LightsSticks(this, options)
 
     this.fovTarget = options.fov
 
@@ -133,7 +132,7 @@ class App {
         resolutionScale: 1,
       }),
     )
-    console.log(this.assets.smaa, this.camera)
+
     const smaaPass = new EffectPass(
       this.camera,
       new SMAAEffect(this.assets.smaa.search, this.assets.smaa.area, SMAAPreset.MEDIUM),
@@ -148,7 +147,8 @@ class App {
 
   loadAssets() {
     const assets = this.assets
-    return new Promise((resolve, reject) => {
+
+    return new Promise(resolve => {
       const manager = new LoadingManager(resolve)
 
       const searchImage = new Image()
@@ -180,8 +180,8 @@ class App {
     this.leftCarLights.mesh.position.setX(-options.roadWidth / 2 - options.islandWidth / 2)
     this.rightCarLights.init()
     this.rightCarLights.mesh.position.setX(options.roadWidth / 2 + options.islandWidth / 2)
-    this.leftSticks.init()
-    this.leftSticks.mesh.position.setX(-(options.roadWidth + options.islandWidth / 2))
+    // this.leftSticks.init()
+    // this.leftSticks.mesh.position.setX(-(options.roadWidth + options.islandWidth / 2))
 
     this.container.addEventListener('mousedown', this.onMouseDown)
     this.container.addEventListener('mouseup', this.onMouseUp)
@@ -212,7 +212,7 @@ class App {
 
     this.rightCarLights.update(time)
     this.leftCarLights.update(time)
-    this.leftSticks.update(time)
+    // this.leftSticks.update(time)
     this.road.update(time)
 
     let updateCamera = false

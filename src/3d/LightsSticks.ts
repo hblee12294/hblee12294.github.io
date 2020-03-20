@@ -9,7 +9,7 @@ import {
   Uniform,
   Mesh,
 } from 'three'
-import { random, pickRandom } from './funcs'
+import { random, pickRandom } from './utils'
 
 const sideSticksVertex = `
 #define USE_FOG;
@@ -109,9 +109,9 @@ class LightsSticks {
       aMetrics.push(width)
       aMetrics.push(height)
     }
-    instanced.addAttribute('aOffset', new InstancedBufferAttribute(new Float32Array(aOffset), 1, false))
-    instanced.addAttribute('aColor', new InstancedBufferAttribute(new Float32Array(aColor), 3, false))
-    instanced.addAttribute('aMetrics', new InstancedBufferAttribute(new Float32Array(aMetrics), 2, false))
+    instanced.setAttribute('aOffset', new InstancedBufferAttribute(new Float32Array(aOffset), 1, false))
+    instanced.setAttribute('aColor', new InstancedBufferAttribute(new Float32Array(aColor), 3, false))
+    instanced.setAttribute('aMetrics', new InstancedBufferAttribute(new Float32Array(aMetrics), 2, false))
     const material = new ShaderMaterial({
       fragmentShader: sideSticksFragment,
       vertexShader: sideSticksVertex,
@@ -141,7 +141,7 @@ class LightsSticks {
     this.webgl.scene.add(mesh)
     this.mesh = mesh
   }
-  update(time: any) {
+  update(time: number) {
     this.mesh.material.uniforms.uTime.value = time
   }
 }

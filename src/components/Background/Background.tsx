@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react'
 import './Background.scss'
 
 import { turbulentDistortion } from 'lib/Distortion'
-import App from 'utils/InfinitLights'
+import App from '3d/InfinitLights'
 
 const Background: React.FC = () => {
   const canvasRootRef = useRef<HTMLDivElement>(null)
@@ -38,8 +38,6 @@ const Background: React.FC = () => {
       movingAwaySpeed: [60, 80],
       movingCloserSpeed: [-120, -160],
 
-      /****  Anything below can be either a number or an array of [min,max] ****/
-
       // Length of the lights. Best to be less than total length
       carLightsLength: [400 * 0.03, 400 * 0.2],
       // Radius of the tubes
@@ -66,8 +64,8 @@ const Background: React.FC = () => {
       },
     }
 
-    const myApp = new App(canvasRoot, options)
-    myApp.loadAssets().then(myApp.init)
+    const app = new App(canvasRoot, options)
+    app.loadAssets().then(app.init)
   }, [])
 
   return <div className="background" ref={canvasRootRef}></div>

@@ -1,3 +1,5 @@
+import { WebGLRenderer } from 'three'
+
 export const random = (base: any) => {
   if (Array.isArray(base)) return Math.random() * (base[1] - base[0]) + base[0]
   return Math.random() * base
@@ -8,7 +10,7 @@ export const pickRandom = (arr: any) => {
   return arr
 }
 
-export const lerp = (current: any, target: any, speed = 0.1, limit = 0.001) => {
+export const lerp = (current: number, target: number, speed = 0.1, limit = 0.001) => {
   let change = (target - current) * speed
   if (Math.abs(change) < limit) {
     change = target - current
@@ -16,7 +18,7 @@ export const lerp = (current: any, target: any, speed = 0.1, limit = 0.001) => {
   return change
 }
 
-export const resizeRendererToDisplaySize = (renderer: any, setSize: any) => {
+export const resizeRendererToDisplaySize = (renderer: WebGLRenderer, setSize: any) => {
   const canvas = renderer.domElement
   const width = canvas.clientWidth
   const height = canvas.clientHeight

@@ -1,13 +1,12 @@
 import React from 'react'
-import './App.scss'
 
-import { Background } from 'components'
+import { Background, Body } from 'components'
 
 const App: React.FC = () => {
   return (
     <>
       <Background />
-      <h1>Hongbin Li</h1>
+      <Body />
     </>
   )
 }
