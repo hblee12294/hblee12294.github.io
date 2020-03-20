@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import './Background.scss'
 
-import { turbulentDistortion } from 'lib/Distortion'
+import { turbulentDistortion } from 'libs/Distortion'
 import App from '3d/InfinitLights'
 
 const Background: React.FC = () => {

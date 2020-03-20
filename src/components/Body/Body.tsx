@@ -9,18 +9,24 @@ const Body: React.FC = () => {
       <header>
         <h1 className="title">HBLEE</h1>
         <p className="intro">
-          An enthusiastic web developer / front-end engineer. Put an eye on web development technology, desgin, finance,
+          An enthusiastic web developer / front-end engineer. Put an eye on web development technology, design, finance,
           etc.
         </p>
-        <ul>
-          <li>
-            <Icon type="GitHub" />
+        <ul className="links">
+          <li className="links-item">
+            <a href="https://github.com/hblee12294" target="_blank" rel="noopener noreferrer">
+              <Icon type="GitHub" />
+            </a>
           </li>
-          <li>
-            <Icon type="LinkedIn" />
+          <li className="links-item">
+            <a href="https://www.linkedin.com/in/hongbin-li" target="_blank" rel="noopener noreferrer">
+              <Icon type="LinkedIn" />
+            </a>
           </li>
-          <li>
-            <Icon type="Instagram" />
+          <li className="links-item">
+            <a href="https://www.instagram.com/hblee12294/" target="_blank" rel="noopener noreferrer">
+              <Icon type="Instagram" />
+            </a>
           </li>
         </ul>
       </header>

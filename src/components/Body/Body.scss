@@ -12,3 +12,17 @@
   max-width: 100%;
   font-size: 18px;
 }
+
+.links {
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  justify-content: start;
+  grid-auto-flow: column;
+  gap: 1.5rem;
+
+  &-item {
+    list-style: none;
+  }
+}
