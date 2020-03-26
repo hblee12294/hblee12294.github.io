@@ -1,5 +1,8 @@
 @import '~styles/index.scss';
 
+$pink: #d856bf;
+$blue: #0e5ea5;
+
 .body {
   padding: 2rem;
 }
@@ -28,7 +31,13 @@
   &-item {
     list-style: none;
 
-    &:hover {
+    & a {
+      display: inline-block;
+      padding: 5px;
+      cursor: pointer;
+    }
+
+    &:hover .icon {
       animation: jump 0.3s;
     }
   }
@@ -57,11 +66,18 @@
     &::before {
       content: '';
       position: absolute;
-      top: 120%;
       left: 0;
+      bottom: -3px;
       width: 100%;
-      height: 3px;
+      height: 2px;
       background-image: linear-gradient(to left, #d856bf, #0e5ea5);
+      transform: translateZ(0);
+      transition: 0.2s;
+      z-index: -1;
+    }
+
+    &:hover::before {
+      height: 13px;
     }
   }
 }
@@ -72,6 +88,6 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-20%);
+    transform: translateY(-15%);
   }
 }
