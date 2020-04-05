@@ -3,14 +3,29 @@ import './Body.scss'
 
 import { Icon } from 'components'
 
+const WORKS = [
+  {
+    name: 'QUANTITATIVE LIFE',
+    link: 'https://hongbinli.com/quantitative-life',
+  },
+  {
+    name: 'SHADER PLAYGROUND',
+    link: 'https://hongbinli.com/shader-playground',
+  },
+  {
+    name: 'THREE ARCHIVE',
+    link: 'https://hongbinli.com/three-archive',
+  },
+]
+
 const Body: React.FC = () => {
   return (
     <div className="body">
       <header>
         <h1 className="title">HONGBIN LI</h1>
+        <p className="intro">An enthusiastic web developer / front-end engineer.</p>
         <p className="intro">
-          An enthusiastic web developer / front-end engineer. Put an eye on web development technology, design, fasion,
-          finance, world, etc.
+          Put an eye on web development, UI & UX design, industrial design, fashion, finance, etc.
         </p>
         <ul className="links">
           <li className="links-item">
@@ -30,26 +45,13 @@ const Body: React.FC = () => {
           </li>
         </ul>
         <ul className="works">
-          <li className="works-item">
-            <a
-              className="works-link"
-              href="https://hongbinli.com/three-archive"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              THREE ARCHIVE
-            </a>
-          </li>
-          <li className="works-item">
-            <a
-              className="works-link"
-              href="https://hongbinli.com/quantitative-life"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              QUANTITATIVE LIFE
-            </a>
-          </li>
+          {WORKS.map(work => (
+            <li key={work.link} className="works-item">
+              <a className="works-link" href={work.link} target="_blank" rel="noopener noreferrer">
+                {work.name}
+              </a>
+            </li>
+          ))}
         </ul>
       </header>
     </div>
